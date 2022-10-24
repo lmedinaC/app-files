@@ -28,8 +28,8 @@ class FileService
 
         $data =  $this->fileRepository->search(
             $per_page,
-            $date_end,
             $date_start,
+            $date_end,
             $name,
             $user_id
         );

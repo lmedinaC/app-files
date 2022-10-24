@@ -18,6 +18,14 @@ class FileRepository
         $this->model = $model;
     }
 
+    /**
+     * Search Files
+     * @return array of FileResource with paginate
+     * @param mixed $per_page Number of records per page
+     * @param mixed $start_date Date start filter
+     * @param mixed $end_date Date end filter 
+     * @param mixed $user_id user id 
+     */
     public function search(
         $per_page = 15,
         $start_date = null,
@@ -26,9 +34,9 @@ class FileRepository
         $user_id = null
     ) {
         $filters = [];
-        $data = $this->model;
+        $data = $this->model->query();
         if (isset($user_id)) {
-            $data->whereRaw("created_at>='$start_date' AND created_at<='$end_date'");
+            $data->where("user_id",$user_id);
         }
         if (isset($start_date) && isset($end_date)) {
             $data->whereRaw("created_at>='$start_date' AND created_at<='$end_date'");
@@ -44,11 +52,7 @@ class FileRepository
         return FileResource::collection($data);
     }
 
-    private function searchInStorageByFileName()
-    {
-    }
-
-    public function softDelete(File $file)
+    public function softDelete(File $file) : void
     {
         if(!$file){
             throw new Exception("The file does not exist.");
@@ -56,6 +60,11 @@ class FileRepository
         $file->delete();
     }
 
+    /**
+     * 
+     * @return void
+     * @param File $file
+     */
     public function hardDelete(File $file)
     {
         if(!$file){
