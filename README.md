@@ -26,7 +26,7 @@
 ## RUN PROYECT 
 
 ~~~
-:php artisan serve --port=3000
+:php artisan serve 
 ~~~
 
 Autor: @lmedinaC
