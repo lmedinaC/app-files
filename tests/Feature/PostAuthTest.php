@@ -16,8 +16,8 @@ class PostAuthTest extends TestCase
         $this->withoutExceptionHandling();
         
         $response = $this->post('/api/credentials',[
-            'email' => 'asd@asd.com',
-            'password' => 'asdasdasd',
+            'email' => env('USER_TEST'),
+            'password' => env('PASSWORD_TEST'),
         ]);
         
         $response
